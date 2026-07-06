@@ -2,11 +2,13 @@ import {state} from "../core/state.js";
 import {renderPresence} from "../ui/userUI.js";
 import {renderLayers} from "../ui/sidebar.js";
 import { rebuildImage } from "../core/importExport.js";
+import {initializeLayers} from "../session/layer.js";
 
 let socket = null;
 
 export function connectSocket() {
     socket = new WebSocket("https://collaborative-whiteboard-n6ej.onrender.com");
+    // socket = new WebSocket("ws://localhost:8080");
 
     socket.onopen = () => { 
         console.log("Connected to server");
@@ -69,14 +71,6 @@ function handleMessage(data) {
             }
         break;
 
-        // case "UPDATE":
-        //     const updatedObject = state.objects.find( object => object.id === data.object.id);
-
-        //     if(updatedObject){
-        //         Object.assign(updatedObject, data.object);
-        //     }
-        // break;
-
         case "UPDATE": 
             const image = state.objects.find( o => o.id === data.object.id);
 
@@ -137,6 +131,14 @@ function handleMessage(data) {
                         rebuildImage(object);
                     }
                 });
+                initializeLayers();   
+                if (!state.layers.find(layer => layer.id === state.activeLayerId)) {
+                    state.activeLayerId = state.layers[0]?.id ?? null;
+                }
+                renderLayers();      
+            }
+            if (data.backgroundColor) {
+                state.backgroundColor = data.backgroundColor;
             }
         break;
 
@@ -162,3 +164,12 @@ export function syncOfflineQueue() {
     }
     console.log("Offline Changes Applied");
 }
+
+window.addEventListener("online", () => {
+    console.log("Browser back online");
+    if (socket && socket.readyState === WebSocket.OPEN) {
+        syncOfflineQueue();
+    } else {
+        connectSocket();
+    }
+});

@@ -30,8 +30,8 @@ setInterval(() => {saveBoard();}, 5000);
 setupBoardUI();
 
 setupLayerUI();
-renderLayers();
 initializeLayers();
+renderLayers();
 viewLayers();
 
 initUser();

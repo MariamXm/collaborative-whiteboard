@@ -64,6 +64,13 @@ export function loadBoard(boardID) {
             return;
         }
 
+        state.backgroundColor = request.result.backgroundColor || "#FFFFFF";
+
+        if (state.objects.length > 0) {
+            console.log("Skipped local load — server data already applied");
+            return;
+        }
+
         // copy saved objects and layers to local memory state
         state.objects = request.result.objects || [];
         state.objects.forEach(object=>{
@@ -72,7 +79,6 @@ export function loadBoard(boardID) {
             }
         });
         state.layers = request.result.layers || [];
-        state.backgroundColor = request.result.backgroundColor || "#FFFFFF";
 
         if (state.layers.length > 0) {
             state.activeLayerId = state.layers[0].id;

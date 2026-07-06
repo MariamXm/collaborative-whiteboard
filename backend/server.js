@@ -12,6 +12,9 @@ server.on("connection", (socket) => {
     socket.on("message", (message) => {
         // console.log(JSON.parse(message));
         const data = JSON.parse(message);
+        if (data.boardId && !boards[data.boardId]) {
+            boards[data.boardId] = { objects: [], layers: [] };
+        }
 
         if (data.type === "JOIN") {
             socket.username = data.user;
@@ -22,13 +25,14 @@ server.on("connection", (socket) => {
             }
 
             if (!boards[data.boardId]) {
-                boards[data.boardId] = {objects: [], layers: []};
+                boards[data.boardId] = {objects: [], layers: [], backgroundColor: "#FFFFFF"};
             }
 
             socket.send(JSON.stringify({
                 type: "BOARD_DATA",
                 objects: boards[data.boardId].objects,
-                layers: boards[data.boardId].layers
+                layers: boards[data.boardId].layers,
+                backgroundColor: boards[data.boardId].backgroundColor
             }));
 
             broadcastUsers();

@@ -173,7 +173,6 @@ function drawRect(ctx, rect){
   ctx.restore();
 }
 
-
 function drawCircle(ctx, circle){
   ctx.save();
   ctx.strokeStyle = "black";
@@ -337,7 +336,7 @@ function drawRemoteCursors(ctx){
   Object.entries(state.cursors).forEach(([user, cursor]) => {
 
     ctx.save();
-    ctx.fillStyle = "";
+    ctx.fillStyle = "red";
 
     ctx.beginPath();
     ctx.arc(cursor.x, cursor.y, 5, 0, Math.PI * 2);
