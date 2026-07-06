@@ -18,6 +18,8 @@ export function shapeDown(e) {
         height: 0,
         rotation: 0,
         layerId: state.activeLayerId,
+        fill: state.fillColor,
+        color: state.strokeColor,
     };
     state.objects.push(currentShape);
 }
