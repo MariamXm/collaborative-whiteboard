@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collaborative Whiteboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <div id="topbar">
+      <button id="menu-toggle" class="icon-only-btn">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <div id="mobile-quick-actions">
+        <button id="tools-toggle" class="quick-action-btn">
+          <i class="fa-solid fa-pen"></i>
+        </button>
+        <button id="layers-toggle" class="quick-action-btn">
+          <i class="fa-solid fa-layer-group"></i>
+        </button>
+        <button id="presence-toggle" class="quick-action-btn">
+          <i class="fa-solid fa-users"></i>
+        </button>
+      </div>
+
+      <div id="topbar-menu">
+
+        <div id="left">
+          <button id="new-board">New Board</button>
+          <button id="copy-link">Copy Link</button>
+          <button id="save-board">Save</button>
+        </div>
+
+        <div id="colors">
+          <div id="current-colors">
+            <button id="primary-color" class="color-box"></button>
+            <button id="secondary-color" class="color-box"></button>
+          </div>
+
+          <div id="color-palette">
+            <button class="palette-color" data-color="#000000" style="background:#000000;"></button>
+            <button class="palette-color" data-color="#808080" style="background:#808080;"></button>
+            <button class="palette-color" data-color="#C0C0C0" style="background:#C0C0C0;"></button>
+            <button class="palette-color" data-color="#FFFFFF" style="background:#FFFFFF;"></button>
+
+            <button class="palette-color" data-color="#FF0000" style="background:#FF0000;"></button>
+            <button class="palette-color" data-color="#800000" style="background:#800000;"></button>
+            <button class="palette-color" data-color="#FFFF00" style="background:#FFFF00;"></button>
+            <button class="palette-color" data-color="#808000" style="background:#808000;"></button>
+
+            <button class="palette-color" data-color="#00FF00" style="background:#00FF00;"></button>
+            <button class="palette-color" data-color="#008000" style="background:#008000;"></button>
+            <button class="palette-color" data-color="#00FFFF" style="background:#00FFFF;"></button>
+            <button class="palette-color" data-color="#008080" style="background:#008080;"></button>
+
+            <button class="palette-color" data-color="#0000FF" style="background:#0000FF;"></button>
+            <button class="palette-color" data-color="#000080" style="background:#000080;"></button>
+            <button class="palette-color" data-color="#FF00FF" style="background:#FF00FF;"></button>
+            <button class="palette-color" data-color="#800080" style="background:#800080;"></button>
+          </div>
+        </div>
+
+        <div id="right">
+          <span id="username">Guest</span>
+          <button id="change-name">Change Name</button>
+
+          <div id="export-buttons">
+            <button id="export-json" title="Export JSON">
+              <i class="fa-solid fa-file-code"></i>
+            </button>
+            <button id="export-png" title="Export PNG">
+              <i class="fa-solid fa-file-image"></i>
+            </button>
+            <button id="export-svg" title="Export SVG">
+              <i class="fa-solid fa-vector-square"></i>
+            </button>
+          </div>
+
+          <div id="import-buttons">
+            <input type="file" id="import-json" accept=".json" hidden>
+            <button id="import-json-btn" title="Import JSON">
+              <i class="fa-solid fa-file-import"></i>
+            </button>
+
+            <input type="file" id="import-svg" accept=".svg" hidden>
+            <button id="import-svg-btn" title="Import SVG">
+              <i class="fa-solid fa-file-arrow-up"></i>
+            </button>
+
+            <input type="file" id="import-image" accept="image/*" hidden>
+            <button id="import-image-btn" title="Import Image">
+              <i class="fa-solid fa-image"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="overlay-backdrop"></div>
+    <div id="workspace">
+      <div id="sidebar">
+        <h3>Layers</h3>
+        <button id="add-layer"> + Add Layer </button>
+        <button id="view-layers">View Layers</button>
+        <ul id="layers-list"></ul>
+      </div>
+
+      <canvas id="canvas"></canvas>
+      <div id="toolbar"></div>
+
+      <div id="eraser-options" style="display:none;">
+        <button data-size="16">16</button>
+        <button data-size="32">32</button>
+        <button data-size="96">96</button>
+      </div>
+
+      <div id="image-actions" style="display:none">
+        <button id="lock-image">
+          <i class="fa-solid fa-lock"></i>
+        </button>
+
+        <button id="save-image">
+          <i class="fa-solid fa-download"></i>
+        </button>
+      </div>
+
+      <div id="presence">
+        <div id="online-count"> 0 users online</div>
+        <ul id="online-users-list"></ul>
+      </div>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
